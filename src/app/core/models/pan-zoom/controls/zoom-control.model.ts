@@ -1,5 +1,5 @@
 import { IMouseCoordinatesWithScale, IState, IZoomControls } from '../../../types';
-import { TransformationUtils } from '../utils/transformation-utils';
+import { getMatrix, getScale, getTranslate } from '../utils';
 
 /**
  * Class to manage zooming in and zooming out
@@ -23,7 +23,7 @@ export class ZoomControl {
                 const { minScale, maxScale, scaleSensitivity } = state;
 
                 // Get scale transforms
-                const [scale, newScale] = TransformationUtils.getScale(
+                const [scale, newScale] = getScale(
                     state.transformation.scale,
                     minScale,
                     maxScale,
@@ -40,13 +40,13 @@ export class ZoomControl {
                 const newOriginY = originY / scale;
 
                 // Get the translate function with properties set
-                const translate = TransformationUtils.getTranslate(minScale, maxScale, scale);
+                const translate = getTranslate(minScale, maxScale, scale);
 
                 const translateX = translate(originX, state.transformation.originX, state.transformation.translateX);
                 const translateY = translate(originY, state.transformation.originY, state.transformation.translateY);
 
                 state.element.style.transformOrigin = `${newOriginX}px ${newOriginY}px`;
-                state.element.style.transform = TransformationUtils.getMatrix(newScale, translateX, translateY);
+                state.element.style.transform = getMatrix(newScale, translateX, translateY);
 
                 // Updated transformation data
                 state.transformation = {

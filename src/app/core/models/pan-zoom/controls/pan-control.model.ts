@@ -1,5 +1,5 @@
 import { ICoordinates, ICoordinatesWithScale, IPanControls, IState } from '../../../types';
-import { TransformationUtils } from '../utils/transformation-utils';
+import { getMatrix } from '../utils';
 
 /**
  * Class to manage panning
@@ -18,13 +18,13 @@ export class PanControl {
      * @param {number} originY
      * @memberof Pan
      */
-    private pan(state: IState, originX: number, originY: number) {
+    private _pan(state: IState, originX: number, originY: number) {
         // Css translate position property
         state.transformation.translateX += originX;
         state.transformation.translateY += originY;
 
         // Transform css matrix property
-        state.element.style.transform = TransformationUtils.getMatrix(
+        state.element.style.transform = getMatrix(
              state.transformation.scale,
              state.transformation.translateX,
              state.transformation.translateY
@@ -40,12 +40,18 @@ export class PanControl {
      */
     canPan(state: IState): IPanControls {
         return {
-            panBy: (origin: ICoordinates) => this.pan(state, origin.originX, origin.originY),
+            // Pan by coordinates
+            panBy: (origin: ICoordinates) => this._pan(
+                state,
+                origin.originX,
+                origin.originY,
+            ),
+            // Pan by coordinates and scale
             panTo: (position: ICoordinatesWithScale) => {
                 // Reset the scale to the factor specified
                 state.transformation.scale = position.scale;
                 // Pan to the position specified
-                this.pan(
+                this._pan(
                     state,
                     position.originX - state.transformation.translateX,
                     position.originY - state.transformation.translateY,
