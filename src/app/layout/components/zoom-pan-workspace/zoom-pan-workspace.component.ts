@@ -27,7 +27,7 @@ export class ZoomPanWorkspaceComponent implements OnInit, AfterViewInit {
     const panZoomInstance = new UiControls({
       minScale: 0.1,
       maxScale: 30,
-      scaleSensitivity: 10,
+      scaleSensitivity: 25,
       element: this.canvasEl,
     });
 
