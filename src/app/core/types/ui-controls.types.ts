@@ -25,11 +25,7 @@ export interface ITransformation {
     scale: number;
 }
 
-export interface IState {
-    element: HTMLElement;
-    minScale: number;
-    maxScale: number;
-    scaleSensitivity: number;
+export interface IState extends IPanZoomOptions {
     transformation: ITransformation;
 }
 

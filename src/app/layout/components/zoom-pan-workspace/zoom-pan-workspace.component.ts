@@ -24,7 +24,7 @@ export class ZoomPanWorkspaceComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.canvasEl = this.canvas.nativeElement;
 
-    const panZoomInstance = new UiControls({
+    const panZoomControl = new UiControls({
       minScale: 0.1,
       maxScale: 30,
       scaleSensitivity: 25,
@@ -32,7 +32,7 @@ export class ZoomPanWorkspaceComponent implements OnInit, AfterViewInit {
     });
 
     // Get the instance of fhe controller
-    this.panzoomController = panZoomInstance.getInstance();
+    this.panzoomController = panZoomControl.getInstance();
   }
 
   /**
@@ -77,12 +77,12 @@ export class ZoomPanWorkspaceComponent implements OnInit, AfterViewInit {
   /**
    * Register mouse move event for registring the pan event
    *
-   * @param {WheelEvent} event
+   * @param {MouseEvent} event
    * @returns
    * @memberof ZoomPanWorkspaceComponent
    */
   @HostListener('mousemove', ['$event'])
-  registerPanEvent(event: WheelEvent) {
+  registerPanEvent(event: MouseEvent) {
     event.preventDefault();
 
     // Shift is pressed
