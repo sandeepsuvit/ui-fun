@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/338adfd9-9398-4b34-96ae-425f877e697d/deploy-status)](https://app.netlify.com/sites/ui-fun/deploys)
+
 # UiFun
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
